@@ -7,9 +7,10 @@ import { Expense } from "../Expenses";
 
 interface ExpenseFormProps {
   onAddExpense: (expense: Expense) => void;
+  onCancel: () => void;
 }
 
-const ExpenseForm = ({ onAddExpense }: ExpenseFormProps) => {
+const ExpenseForm = ({ onAddExpense, onCancel }: ExpenseFormProps) => {
   const { register, handleSubmit } = useForm();
   const [startDate, setDate] = useState(new Date());
 
@@ -25,18 +26,39 @@ const ExpenseForm = ({ onAddExpense }: ExpenseFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.expense_form}>
-      <input
-        placeholder="Title"
-        type="text"
-        {...register("title", { required: true })}
-      />
-      <input
-        placeholder="Amount"
-        type="number"
-        {...register("amount", { required: true, min: 1 })}
-      />
-      <DatePicker selected={startDate} onChange={(date) => setDate(date!)} />
-      <input type="submit" value="Add Expense" />
+      <div className={styles.expense_form__control}>
+        <label>Title</label>
+        <input
+          placeholder="Title"
+          type="text"
+          {...register("title", { required: true })}
+        />
+      </div>
+
+      <div className={styles.expense_form__control}>
+        <label>Amount</label>
+        <input
+          placeholder="Amount"
+          type="number"
+          {...register("amount", { required: true, min: 1 })}
+        />
+      </div>
+
+      <div className={styles.expense_form__control}>
+        <label>Date</label>
+        <DatePicker selected={startDate} onChange={(date) => setDate(date!)} />
+      </div>
+
+      <div className={styles.expense_form__actions}>
+        <button className={styles.expense_form__submit} onClick={onCancel}>
+          Cancel
+        </button>
+        <input
+          type="submit"
+          value="Add Expense"
+          className={styles.expense_form__submit}
+        />
+      </div>
     </form>
   );
 };

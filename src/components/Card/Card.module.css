@@ -8,3 +8,20 @@
   width: 50rem;
   max-width: 95%;
 }
+
+.button_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem; /* Optional: Add space below the button */
+}
+
+.toggle_button {
+  background-color: #5c007a;
+  color: white;
+  border: none;
+  padding: 1rem 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+}

@@ -10,23 +10,29 @@
   align-items: center;
 }
 
-.expenseFormControl {
+.expense_form__submit {
+  background-color: #5c007a;
+  color: white;
+  border: none;
+  padding: 1rem 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.expense_form__control {
   display: flex;
   flex-direction: column;
 }
 
-.expenseFormActions {
+.expense_form__control input {
+  border-radius: 5px;
+  padding: 0.4rem;
+}
+
+.expense_form__actions {
   grid-column: span 2;
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-}
-
-.expenseFormActions button {
-  background-color: #5c007a;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 5px;
 }
