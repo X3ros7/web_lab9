@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import ExpenseItem from "../ExpenseItem";
+import styles from "./Expenses.module.css";
+import Filter from "../Filter";
 
 export interface Expense {
   id: string;
@@ -13,9 +15,18 @@ interface ExpensesProps {
 }
 
 const Expenses = ({ expenses }: ExpensesProps) => {
+  const [year, setYear] = useState("2021");
+
+  const filteredExpenses = expenses.filter((expense) => {
+    const expenseYear = expense.date.getFullYear().toString();
+
+    return expenseYear === year;
+  });
+
   return (
-    <div className="">
-      {expenses.map((expense) => (
+    <div className={styles.expenses}>
+      <Filter onYearChange={setYear} selectedYear={year} />
+      {filteredExpenses.map((expense) => (
         <div className="expense_item" key={expense.id}>
           <ExpenseItem expense={expense} />
         </div>
