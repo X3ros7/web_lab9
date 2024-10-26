@@ -3,6 +3,7 @@ import Expenses, { Expense } from "../Expenses";
 import styles from "./Card.module.css";
 import ExpenseForm from "../ExpenseForm";
 import Hystogram from "../Hystogram";
+import Filter from "../Filter";
 
 const Card = () => {
   const [expenses, setExpenses] = useState([
@@ -49,75 +50,6 @@ const Card = () => {
     (expense) => expense.date.getFullYear().toString() === selectedYear
   );
 
-  const monthlyExpenses = Array(12).fill(0);
-  expenses.forEach((expense) => {
-    const month = expense.date.getMonth();
-    ++monthlyExpenses[month];
-  });
-
-  const chartDataPoints = [
-    {
-      label: "Jan",
-      value: monthlyExpenses[0],
-      maxValue: Math.max(...monthlyExpenses),
-    },
-    {
-      label: "Feb",
-      value: monthlyExpenses[1],
-      maxValue: Math.max(...monthlyExpenses),
-    },
-    {
-      label: "Mar",
-      value: monthlyExpenses[2],
-      maxValue: Math.max(...monthlyExpenses),
-    },
-    {
-      label: "Apr",
-      value: monthlyExpenses[3],
-      maxValue: Math.max(...monthlyExpenses),
-    },
-    {
-      label: "May",
-      value: monthlyExpenses[4],
-      maxValue: Math.max(...monthlyExpenses),
-    },
-    {
-      label: "Jun",
-      value: monthlyExpenses[5],
-      maxValue: Math.max(...monthlyExpenses),
-    },
-    {
-      label: "Jul",
-      value: monthlyExpenses[6],
-      maxValue: Math.max(...monthlyExpenses),
-    },
-    {
-      label: "Aug",
-      value: monthlyExpenses[7],
-      maxValue: Math.max(...monthlyExpenses),
-    },
-    {
-      label: "Sep",
-      value: monthlyExpenses[8],
-      maxValue: Math.max(...monthlyExpenses),
-    },
-    {
-      label: "Oct",
-      value: monthlyExpenses[9],
-      maxValue: Math.max(...monthlyExpenses),
-    },
-    {
-      label: "Nov",
-      value: monthlyExpenses[10],
-      maxValue: Math.max(...monthlyExpenses),
-    },
-    {
-      label: "Dec",
-      value: monthlyExpenses[11],
-      maxValue: Math.max(...monthlyExpenses),
-    },
-  ];
-
   return (
     <div className={styles.card}>
       {!isFormVisible ? (
@@ -129,8 +61,9 @@ const Card = () => {
       ) : (
         <ExpenseForm onAddExpense={addExpenseHandler} onCancel={togleForm} />
       )}
-      <Hystogram dataPoints={chartDataPoints} />
-      <Expenses expenses={expenses} />
+      <Filter onYearChange={setSelectedYear} selectedYear={selectedYear} />
+      <Hystogram expenses={filteredExpenses} />
+      <Expenses expenses={filteredExpenses} />
     </div>
   );
 };
